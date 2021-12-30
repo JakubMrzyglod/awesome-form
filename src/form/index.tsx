@@ -5,11 +5,18 @@ import { FormProps } from './form.types'
 export const Form: FC<FormProps> = ({
   children,
   submit,
-  useFormProps,
-  ...formProps
+  noReset,
+  formProps,
+  ...useFormProps
 }) => {
   const methods = useForm(useFormProps)
-  const onSubmit = methods.handleSubmit((data) => submit(data, methods))
+  const onSubmit = methods.handleSubmit((data) => {
+    submit(data)
+    if (noReset) {
+      return
+    }
+    methods.reset()
+  })
   return (
     <FormProvider {...methods}>
       <form {...{ ...formProps, onSubmit }}>{children}</form>

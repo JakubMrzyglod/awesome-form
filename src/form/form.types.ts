@@ -1,13 +1,13 @@
 import { DetailedHTMLProps, FormHTMLAttributes } from 'react'
 import { UnpackNestedValue, UseFormProps } from 'react-hook-form'
-import { Methods } from '..'
 
 export type FormProps = {
-  useFormProps: UseFormProps
   submit: Submit
-} & Omit<
-  DetailedHTMLProps<FormHTMLAttributes<HTMLFormElement>, HTMLFormElement>,
-  'onSubmit'
->
+  noReset?: boolean
+  formProps?: Omit<
+    DetailedHTMLProps<FormHTMLAttributes<HTMLFormElement>, HTMLFormElement>,
+    'onSubmit'
+  >
+} & UseFormProps
 
-type Submit = (data: UnpackNestedValue<any>, methods: Methods) => void
+type Submit = (data: UnpackNestedValue<any>) => void

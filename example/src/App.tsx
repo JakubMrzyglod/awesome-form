@@ -1,17 +1,14 @@
 import React, { FC } from 'react'
-import { Control, ControlProps, Form, Methods, InputGroup } from 'awesome-form'
+import { Control, ControlProps, Form, InputGroup } from 'awesome-form'
 import { object, string } from 'yup'
 import { yupResolver } from '@hookform/resolvers/yup'
 
 export const App = () => {
-  const submit = (data: any, methods: Methods) => {
-    console.log(data)
-    methods.reset()
-  }
+  const submit = console.log
   return (
-    <Form {...{ submit, useFormProps: { resolver } }}>
+    <Form {...{ submit, resolver }}>
       <InputGroup {...{ name: 'test', label: 'Test' }} />
-      <Control {...{ name: 'a', Component: Counter, defaultValue: 0 }} />
+      <Control {...{ name: 'a', Component, defaultValue: 0 }} />
     </Form>
   )
 }
@@ -22,7 +19,7 @@ const schema = object().shape({
 
 export const resolver = yupResolver(schema)
 
-const Counter: FC<ControlProps> = ({
+const Component: FC<ControlProps> = ({
   field: { onChange, value },
   formState
 }) => {

@@ -1,5 +1,5 @@
 import React, { FC } from 'react'
-import { Error } from '..'
+import { Error } from '../error'
 import { GroupWrapperProps } from './group.types'
 
 export const GroupWrapper: FC<GroupWrapperProps> = ({
