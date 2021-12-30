@@ -1,12 +1,5 @@
 import React, { FC } from 'react'
-import {
-  Control,
-  ControlProps,
-  Form,
-  Input,
-  Methods,
-  Error
-} from 'awesome-form'
+import { Control, ControlProps, Form, Methods, InputGroup } from 'awesome-form'
 import { object, string } from 'yup'
 import { yupResolver } from '@hookform/resolvers/yup'
 
@@ -17,8 +10,7 @@ export const App = () => {
   }
   return (
     <Form {...{ submit, useFormProps: { resolver } }}>
-      <Input {...{ name: 'test' }} />
-      <Error {...{ name: 'test' }} />
+      <InputGroup {...{ name: 'test', label: 'Test' }} />
       <Control {...{ name: 'a', Component: Counter, defaultValue: 0 }} />
     </Form>
   )
