@@ -1,4 +1,4 @@
-import { FC } from 'react'
+import React, { FC } from 'react'
 import { useForm, FormProvider } from 'react-hook-form'
 import { FormProps } from './form.types'
 
@@ -9,7 +9,7 @@ export const Form: FC<FormProps> = ({
   ...formProps
 }) => {
   const methods = useForm(useFormProps)
-  const onSubmit = methods.handleSubmit(submit)
+  const onSubmit = methods.handleSubmit((data) => submit(data, methods))
   return (
     <FormProvider {...methods}>
       <form {...{ ...formProps, onSubmit }}>{children}</form>

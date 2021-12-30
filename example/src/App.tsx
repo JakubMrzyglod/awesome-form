@@ -1,10 +1,28 @@
-import React from 'react'
+import React, { FC } from 'react'
 
-import { ExampleComponent } from 'awesome-form'
-import 'awesome-form/dist/index.css'
+import { Control, ControlProps, Form, Input, Methods } from 'awesome-form'
 
-const App = () => {
-  return <ExampleComponent text="Create React Library Example 😄" />
+export const App = () => {
+  const submit = (data: any, methods: Methods) => {
+    console.log(data)
+    methods.reset()
+  }
+  return (
+    <Form {...{ submit, useFormProps: {} }}>
+      <Input {...{ name: 'test' }} />
+      <Control {...{ name: 'a', Component: Counter, defaultValue: 0 }} />
+    </Form>
+  )
 }
 
-export default App
+const Counter: FC<ControlProps> = ({ field: { onChange, value } }) => {
+  console.log(value, 'value')
+  return (
+    <>
+      <button {...{ onClick: () => onChange(value + 1), type: 'button' }}>
+        add
+      </button>
+      {value}
+    </>
+  )
+}
