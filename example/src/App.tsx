@@ -1,6 +1,14 @@
 import React, { FC } from 'react'
-
-import { Control, ControlProps, Form, Input, Methods } from 'awesome-form'
+import {
+  Control,
+  ControlProps,
+  Form,
+  Input,
+  Methods,
+  Error
+} from 'awesome-form'
+import { object, string } from 'yup'
+import { yupResolver } from '@hookform/resolvers/yup'
 
 export const App = () => {
   const submit = (data: any, methods: Methods) => {
@@ -8,15 +16,25 @@ export const App = () => {
     methods.reset()
   }
   return (
-    <Form {...{ submit, useFormProps: {} }}>
+    <Form {...{ submit, useFormProps: { resolver } }}>
       <Input {...{ name: 'test' }} />
+      <Error {...{ name: 'test' }} />
       <Control {...{ name: 'a', Component: Counter, defaultValue: 0 }} />
     </Form>
   )
 }
 
-const Counter: FC<ControlProps> = ({ field: { onChange, value } }) => {
-  console.log(value, 'value')
+const schema = object().shape({
+  test: string().required()
+})
+
+export const resolver = yupResolver(schema)
+
+const Counter: FC<ControlProps> = ({
+  field: { onChange, value },
+  formState
+}) => {
+  console.log(formState.errors, 'value')
   return (
     <>
       <button {...{ onClick: () => onChange(value + 1), type: 'button' }}>
